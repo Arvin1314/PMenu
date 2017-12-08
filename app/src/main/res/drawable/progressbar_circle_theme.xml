@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromDegrees="0"
+    android:pivotX="50%"
+    android:pivotY="50%"
+    android:toDegrees="359" >
+
+    <!--
+		android:innerRadiux
+		尺寸值，它用尺寸值或尺寸资源指定圆环内部的半径（指中间的圆孔的半径）。
+		
+		android:innerRadiusRatio
+		浮点值，它用圆环宽度的比率来表示内部圆环的半径。例如，如果android:innerRadiusRatio=”5”，那么内部半径就等于圆环的宽度除以5。这个值会被android:innerRadius的值覆盖。默认是9。
+		
+		android:thickness
+		尺寸值，它用一个尺寸值或尺寸资源来定义圆环的厚度。
+		
+		android:thicknessRatio
+		浮点值。它用圆环宽度的比率来表示圆环的厚度。例如，如果android:thicknessRatio=”2”，那么厚度就等于圆环的宽度除以2。这个值会被android:innerRadius覆盖。默认值是3。也就是说这个值设置的越大圆环就越细了。
+		android:useLevel
+		布尔值，如果这个形状要用于LevelListDrawable对象，那么就设置为true。通常应该设置为false或者让形状不可见。
+    -->
+
+   <!-- <gradient
+        android:endColor="#3300a0e9"
+        android:startColor="#dd438edb"
+        android:type="sweep" />-->
+
+    <shape
+        android:innerRadius="6dp"
+        android:shape="ring"
+        android:thickness="2dp"
+        android:useLevel="false" >
+        <gradient
+            android:endColor="#00ffffff"
+            android:gradientRadius="10dp"
+            android:startColor="@color/theme_color"
+            android:type="sweep" />
+    </shape>
+
+</rotate>

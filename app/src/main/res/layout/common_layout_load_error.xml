@@ -1,0 +1,21 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:clickable="true"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/body_reload_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:gravity="center"
+        android:padding="10dp"
+        android:drawableTop="@mipmap/ic_launcher"
+        android:text="@string/overlay_load_error"
+        android:textColor="@color/theme_color"
+        android:textSize="12sp" />
+
+</LinearLayout>

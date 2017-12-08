@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar"
+        style="@style/NoSpaceActionBarTheme"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorPrimary" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@mipmap/image_product" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:layout_weight="2"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_color_666666"
+                        android:text="的女孩从爱德华差不多就上传加的女的女孩从爱德华差不多就上传加的女的女孩从爱德华差不多就上传加的女的女孩从爱德华差不多就上传加的女" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/product_video"
+                    android:layout_width="match_parent"
+                    android:layout_height="280dp"
+                    android:background="@mipmap/image_video_background"
+                    android:scaleType="center"
+                    android:src="@mipmap/image_video_play" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_commend"
+            android:layout_width="100dp"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+</LinearLayout>

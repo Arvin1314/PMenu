@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PMenu</string>
+    <string name="overlay_loading">加载中...</string>
+    <string name="overlay_load_error">加载失败，点击重新加载</string>
+</resources>
