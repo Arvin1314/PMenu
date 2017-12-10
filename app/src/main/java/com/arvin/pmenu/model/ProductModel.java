@@ -8,22 +8,23 @@ import java.io.Serializable;
 
 public class ProductModel implements Serializable {
 
-    private int sortNo;
+
+    private String uuid;
     private String name;
-
-    private String isDeleted;
-    private String newProduct;
+    private String cataloguuid;
+    private String isdeleted;
+    private String newproduct;
     private String picture;
-    private String pictureDesc;
-    private String textDesc;
-    private String videoDesc;
+    private String picturedesc;
+    private String textdesc;
+    private String videodesc;
 
-    public int getSortNo() {
-        return sortNo;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setSortNo(int sortNo) {
-        this.sortNo = sortNo;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getName() {
@@ -34,20 +35,28 @@ public class ProductModel implements Serializable {
         this.name = name;
     }
 
-    public String getIsDeleted() {
-        return isDeleted;
+    public String getCataloguuid() {
+        return cataloguuid;
     }
 
-    public void setIsDeleted(String isDeleted) {
-        this.isDeleted = isDeleted;
+    public void setCataloguuid(String cataloguuid) {
+        this.cataloguuid = cataloguuid;
     }
 
-    public String getNewProduct() {
-        return newProduct;
+    public String getIsdeleted() {
+        return isdeleted;
     }
 
-    public void setNewProduct(String newProduct) {
-        this.newProduct = newProduct;
+    public void setIsdeleted(String isdeleted) {
+        this.isdeleted = isdeleted;
+    }
+
+    public String getNewproduct() {
+        return newproduct;
+    }
+
+    public void setNewproduct(String newproduct) {
+        this.newproduct = newproduct;
     }
 
     public String getPicture() {
@@ -58,41 +67,42 @@ public class ProductModel implements Serializable {
         this.picture = picture;
     }
 
-    public String getPictureDesc() {
-        return pictureDesc;
+    public String getPicturedesc() {
+        return picturedesc;
     }
 
-    public void setPictureDesc(String pictureDesc) {
-        this.pictureDesc = pictureDesc;
+    public void setPicturedesc(String picturedesc) {
+        this.picturedesc = picturedesc;
     }
 
-    public String getTextDesc() {
-        return textDesc;
+    public String getTextdesc() {
+        return textdesc;
     }
 
-    public void setTextDesc(String textDesc) {
-        this.textDesc = textDesc;
+    public void setTextdesc(String textdesc) {
+        this.textdesc = textdesc;
     }
 
-    public String getVideoDesc() {
-        return videoDesc;
+    public String getVideodesc() {
+        return videodesc;
     }
 
-    public void setVideoDesc(String videoDesc) {
-        this.videoDesc = videoDesc;
+    public void setVideodesc(String videodesc) {
+        this.videodesc = videodesc;
     }
 
     @Override
     public String toString() {
         return "ProductModel{" +
-                "sortNo=" + sortNo +
+                "uuid='" + uuid + '\'' +
                 ", name='" + name + '\'' +
-                ", isDeleted='" + isDeleted + '\'' +
-                ", newProduct='" + newProduct + '\'' +
+                ", cataloguuid='" + cataloguuid + '\'' +
+                ", isdeleted='" + isdeleted + '\'' +
+                ", newproduct='" + newproduct + '\'' +
                 ", picture='" + picture + '\'' +
-                ", pictureDesc='" + pictureDesc + '\'' +
-                ", textDesc='" + textDesc + '\'' +
-                ", videoDesc='" + videoDesc + '\'' +
+                ", picturedesc='" + picturedesc + '\'' +
+                ", textdesc='" + textdesc + '\'' +
+                ", videodesc='" + videodesc + '\'' +
                 '}';
     }
 }

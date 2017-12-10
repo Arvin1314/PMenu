@@ -50,8 +50,8 @@ public class CategoryPopupWindow extends PopupWindow {
         setBackgroundDrawable(new BitmapDrawable());
         setFocusable(true);
 
-        setWidth((int) (250 * Screen.SCALE));
-        setHeight((int) (Screen.HEIGHT - Screen.STATUS_BAR_HEIGHT - 48 * Screen.SCALE));
+        setWidth((int) (280 * Screen.SCALE));
+        setHeight((int) (Screen.HEIGHT - 56 * Screen.SCALE));
 
         setAnimationStyle(0);
         view.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +68,7 @@ public class CategoryPopupWindow extends PopupWindow {
         //大类
         for (int i = 0; i < list.size(); i++) {
             CategoryModel model = list.get(i);
-            List<CategoryModel> subCategory = model.getSubProductCatalog();
+            List<CategoryModel> subCategory = model.getSubproductcatalog();
             if (subCategory != null && subCategory.size() > 0) {
                 for (CategoryModel sub : subCategory) {
                     sub.setSort(i);
@@ -93,22 +93,24 @@ public class CategoryPopupWindow extends PopupWindow {
         mAdapter.setOnItemClickListener(new CategoryHeaderAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                String category = mCategory.get(position).getParent();
-                int sortNo = mCategory.get(position).getSortNo();
-                String name = mCategory.get(position).getName();
-                mListener.onClick(category, sortNo, name);
+                CategoryModel category = mCategory.get(position);
+                String uuid = category.getUuid();
+                String name = category.getName();
+                String parent = category.getParent();
+                mListener.onClick(uuid, name, parent);
                 dismiss();
             }
         });
         return this;
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    public CategoryPopupWindow setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
+        return this;
     }
 
     public interface OnItemClickListener {
-        void onClick(String category, int sortNo, String name);
+        void onClick(String uuid, String name, String parent);
     }
 
 }

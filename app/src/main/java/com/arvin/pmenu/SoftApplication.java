@@ -13,6 +13,5 @@ public class SoftApplication extends FrameApplication {
         super.onCreate();
 
         RequestSender.init(VolleyNetwork.getInstance());
-        Config.DEBUG = true;
     }
 }

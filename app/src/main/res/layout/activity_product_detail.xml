@@ -2,14 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/tool_bar"
         style="@style/NoSpaceActionBarTheme"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/colorPrimary" />
+        android:layout_height="?actionBarSize"
+        android:background="@color/bg_color_white" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,25 +32,31 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
+                        android:id="@+id/product_image"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@mipmap/image_product" />
 
                     <TextView
+                        android:id="@+id/product_desc"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:padding="4dp"
                         android:layout_weight="2"
-                        android:textSize="14sp"
+                        android:padding="4dp"
+                        android:text="的女孩从爱德华差不多就上传加的女的女孩从爱德华差不多就上传加的女的女孩从爱德华差不多就上传加的女的女孩从爱德华差不多就上传加的女"
                         android:textColor="@color/text_color_666666"
-                        android:text="的女孩从爱德华差不多就上传加的女的女孩从爱德华差不多就上传加的女的女孩从爱德华差不多就上传加的女的女孩从爱德华差不多就上传加的女" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <ImageView
                     android:id="@+id/product_video"
                     android:layout_width="match_parent"
                     android:layout_height="280dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="12dp"
                     android:background="@mipmap/image_video_background"
                     android:scaleType="center"
                     android:src="@mipmap/image_video_play" />
@@ -58,7 +66,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_commend"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent" />
 
     </LinearLayout>

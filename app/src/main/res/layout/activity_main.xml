@@ -8,12 +8,13 @@
         android:id="@+id/tool_bar"
         style="@style/NoSpaceActionBarTheme"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/colorPrimary" />
+        android:layout_height="?actionBarSize"
+        android:background="@color/bg_color_white" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_product"
         android:layout_width="match_parent"
+        android:background="#FFF"
         android:layout_height="match_parent" />
 
 </LinearLayout>

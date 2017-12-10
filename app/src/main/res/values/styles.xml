@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
         <!--<item name="windowActionBar">false</item>-->
         <item name="toolbarNavigationButtonStyle">@style/myToolbarNavigationButtonStyle</item>
     </style>
@@ -18,7 +20,8 @@
 
     <!--Toolbar 字体大小-->
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <!--Toolbar icon间距-->

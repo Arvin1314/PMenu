@@ -8,20 +8,28 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.arvin.pmenu.frame.CommonActivity;
 import com.arvin.pmenu.model.ProductModel;
 import com.arvin.pmenu.recycler.CommonAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
+import com.arvin.pmenu.recycler.ProductAdapter;
+import com.arvin.pmenu.recycler.decoration.HorizontalDividerItemDecoration;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.arvin.framework.bean.Screen;
 import cn.arvin.framework.core.image.ImageLoader;
+import cn.arvin.framework.utils.DensityUtil;
 
 
 public class DetailActivity extends CommonActivity {
@@ -31,6 +39,8 @@ public class DetailActivity extends CommonActivity {
     private Toolbar mToolbar;
     private RecyclerView mRecyclerCommend;
     private CommonAdapter<ProductModel> mCommendAdapter;
+    private ImageView mProductImage;
+    private TextView mProductDesc;
     private ImageView mVideo;
 
     private ProductModel mProduct;
@@ -59,27 +69,39 @@ public class DetailActivity extends CommonActivity {
     public void initBodyViews(View view) {
         initToolbar();
 
+        mProductImage = (ImageView) findViewById(R.id.product_image);
+        mProductDesc = (TextView) findViewById(R.id.product_desc);
         mVideo = (ImageView) findViewById(R.id.product_video);
         mRecyclerCommend = (RecyclerView) findViewById(R.id.recycler_commend);
+
+        mProductImage.setLayoutParams(new LinearLayout.LayoutParams(Screen.WIDTH / 4, Screen.WIDTH / 4));
+
+        ImageLoader.showImage(mProduct.getPicturedesc(), mProductImage);
+
+        mProductDesc.setText(Html.fromHtml(mProduct.getTextdesc()));
+
+        initCommendsView();
+
+        String videoUrl = mProduct.getVideodesc();
+        mVideo.setVisibility(!TextUtils.isEmpty(videoUrl) ? View.VISIBLE : View.GONE);
+
+    }
+
+    private void initCommendsView() {
+        mRecyclerCommend.setLayoutParams(new LinearLayout.LayoutParams(Screen.WIDTH / 4, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        mRecyclerCommend.addItemDecoration(new HorizontalDividerItemDecoration.Builder(mActivity)
+                .size(DensityUtil.dp2px(12))
+                .color(Color.WHITE)
+                .build());
 
         mRecyclerCommend.setLayoutManager(new LinearLayoutManager(this));
         //屏蔽动画
         ((SimpleItemAnimator) mRecyclerCommend.getItemAnimator()).setSupportsChangeAnimations(false);
 
-        mCommendAdapter = new CommonAdapter<ProductModel>(R.layout.layout_recycler_product_item, mCommends) {
-            @Override
-            protected void convert(BaseViewHolder holder, ProductModel bean) {
-                ImageView image = holder.getView(R.id.product_image);
-                ImageLoader.showImage(bean.getPicture(), image);
-                holder.setText(R.id.product_name, bean.getName());
-            }
-        };
+        mCommendAdapter = new ProductAdapter(mCommends, Screen.WIDTH / 4);
 
         mRecyclerCommend.setAdapter(mCommendAdapter);
-
-        String videoUrl = mProduct.getVideoDesc();
-        mVideo.setVisibility(!TextUtils.isEmpty(videoUrl) ? View.VISIBLE : View.GONE);
-
     }
 
     @Override
@@ -91,7 +113,7 @@ public class DetailActivity extends CommonActivity {
     protected void onClickEvent(int id, View view) {
         switch (id) {
             case R.id.product_video:
-                Uri videoUri = Uri.parse(mProduct.getVideoDesc());
+                Uri videoUri = Uri.parse(mProduct.getVideodesc());
                 String type = "video/*";
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(videoUri, type);
@@ -106,9 +128,9 @@ public class DetailActivity extends CommonActivity {
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
         mToolbar.setTitle(mProduct.getName());
         mToolbar.setTitleTextAppearance(this, R.style.Toolbar_TitleText);
-        mToolbar.setTitleTextColor(Color.WHITE);
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.text_color_default));
         //侧边栏的按钮
-        mToolbar.setNavigationIcon(R.mipmap.common_arrows_left_white);
+        mToolbar.setNavigationIcon(R.mipmap.common_arrows_left);
         //取代原本的actionbar
         setSupportActionBar(mToolbar);
 

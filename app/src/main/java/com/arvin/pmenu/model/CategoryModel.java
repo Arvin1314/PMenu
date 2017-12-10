@@ -8,9 +8,9 @@ public class CategoryModel implements Serializable {
     private String name;
     private String parent;
     private int sort;
-    private int sortNo;
-    private String isDeleted;
-    private List<CategoryModel> subProductCatalog;
+    private String isdeleted;
+    private String uuid;
+    private List<CategoryModel> subproductcatalog;
 
     public String getName() {
         return name;
@@ -36,28 +36,28 @@ public class CategoryModel implements Serializable {
         this.sort = sort;
     }
 
-    public int getSortNo() {
-        return sortNo;
+    public String getIsdeleted() {
+        return isdeleted;
     }
 
-    public void setSortNo(int sortNo) {
-        this.sortNo = sortNo;
+    public void setIsdeleted(String isdeleted) {
+        this.isdeleted = isdeleted;
     }
 
-    public String getIsDeleted() {
-        return isDeleted;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setIsDeleted(String isDeleted) {
-        this.isDeleted = isDeleted;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
-    public List<CategoryModel> getSubProductCatalog() {
-        return subProductCatalog;
+    public List<CategoryModel> getSubproductcatalog() {
+        return subproductcatalog;
     }
 
-    public void setSubProductCatalog(List<CategoryModel> subProductCatalog) {
-        this.subProductCatalog = subProductCatalog;
+    public void setSubproductcatalog(List<CategoryModel> subproductcatalog) {
+        this.subproductcatalog = subproductcatalog;
     }
 
     @Override
@@ -66,9 +66,9 @@ public class CategoryModel implements Serializable {
                 "name='" + name + '\'' +
                 ", parent='" + parent + '\'' +
                 ", sort=" + sort +
-                ", sortNo=" + sortNo +
-                ", isDeleted='" + isDeleted + '\'' +
-                ", subProductCatalog=" + subProductCatalog +
+                ", isdeleted='" + isdeleted + '\'' +
+                ", uuid='" + uuid + '\'' +
+                ", subproductcatalog=" + subproductcatalog +
                 '}';
     }
 }

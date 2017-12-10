@@ -10,30 +10,30 @@ import java.util.List;
  */
 
 public class DataResp extends BaseResp {
-    private List<CategoryModel> productCataloglist;
-    private List<ProductModel> productInfolist;
+    private List<CategoryModel> productcataloglist;
+    private List<ProductModel> productinfolist;
 
-    public List<CategoryModel> getProductCataloglist() {
-        return productCataloglist;
+    public List<CategoryModel> getProductcataloglist() {
+        return productcataloglist;
     }
 
-    public void setProductCataloglist(List<CategoryModel> productCataloglist) {
-        this.productCataloglist = productCataloglist;
+    public void setProductcataloglist(List<CategoryModel> productcataloglist) {
+        this.productcataloglist = productcataloglist;
     }
 
-    public List<ProductModel> getProductInfolist() {
-        return productInfolist;
+    public List<ProductModel> getProductinfolist() {
+        return productinfolist;
     }
 
-    public void setProductInfolist(List<ProductModel> productInfolist) {
-        this.productInfolist = productInfolist;
+    public void setProductinfolist(List<ProductModel> productinfolist) {
+        this.productinfolist = productinfolist;
     }
 
     @Override
     public String toString() {
         return "DataResp{" +
-                "productCataloglist=" + productCataloglist +
-                ", productInfolist=" + productInfolist +
+                "productcataloglist=" + productcataloglist +
+                ", productinfolist=" + productinfolist +
                 '}';
     }
 }

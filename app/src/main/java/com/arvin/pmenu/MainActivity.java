@@ -5,8 +5,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.arvin.pmenu.constants.Urls;
 import com.arvin.pmenu.frame.CommonActivity;
@@ -14,6 +17,11 @@ import com.arvin.pmenu.model.CategoryModel;
 import com.arvin.pmenu.model.ProductModel;
 import com.arvin.pmenu.popupwindow.CategoryPopupWindow;
 import com.arvin.pmenu.recycler.CommonAdapter;
+import com.arvin.pmenu.recycler.ProductAdapter;
+import com.arvin.pmenu.recycler.decoration.FlexibleDividerDecoration;
+import com.arvin.pmenu.recycler.decoration.GridDecoration;
+import com.arvin.pmenu.recycler.decoration.HorizontalDividerItemDecoration;
+import com.arvin.pmenu.recycler.decoration.VerticalDividerItemDecoration;
 import com.arvin.pmenu.response.DataResp;
 import com.arvin.pmenu.response.callback.RequestCallback;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -24,7 +32,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.arvin.framework.bean.Screen;
 import cn.arvin.framework.core.image.ImageLoader;
+import cn.arvin.framework.utils.DensityUtil;
 
 
 public class MainActivity extends CommonActivity {
@@ -36,6 +46,8 @@ public class MainActivity extends CommonActivity {
     private List<ProductModel> mAllProducts = new ArrayList<>();
     private List<ProductModel> mProducts = new ArrayList<>();
 
+    private int mImageWidth;
+
     @Override
     public int getBodyViewId() {
         return R.layout.activity_main;
@@ -46,18 +58,19 @@ public class MainActivity extends CommonActivity {
         initToolbar();
 
         mRecyclerProduct = (RecyclerView) findViewById(R.id.recycler_product);
+
         mRecyclerProduct.setLayoutManager(new GridLayoutManager(mActivity, 4));
+
+        int space = DensityUtil.dp2px(12);
+
+        mRecyclerProduct.addItemDecoration(new GridDecoration(space));
+
+        mImageWidth = (Screen.WIDTH - 3 * space) / 4;
+
         //屏蔽动画
         ((SimpleItemAnimator) mRecyclerProduct.getItemAnimator()).setSupportsChangeAnimations(false);
 
-        mProductAdapter = new CommonAdapter<ProductModel>(R.layout.layout_recycler_product_item, mProducts) {
-            @Override
-            protected void convert(BaseViewHolder holder, ProductModel bean) {
-                ImageView image = holder.getView(R.id.product_image);
-                ImageLoader.showImage(bean.getPicture(), image);
-                holder.setText(R.id.product_name, bean.getName());
-            }
-        };
+        mProductAdapter = new ProductAdapter(mProducts, mImageWidth);
 
         mRecyclerProduct.setAdapter(mProductAdapter);
     }
@@ -74,7 +87,14 @@ public class MainActivity extends CommonActivity {
         mProductAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                DetailActivity.startAction(mActivity, mProducts.get(position),mProducts);
+
+                List<ProductModel> newProducts = new ArrayList<>();
+                for (ProductModel model : mAllProducts) {
+                    if ("1".equals(model.getNewproduct())) {
+                        newProducts.add(model);
+                    }
+                }
+                DetailActivity.startAction(mActivity, mProducts.get(position), newProducts);
             }
         });
     }
@@ -88,7 +108,7 @@ public class MainActivity extends CommonActivity {
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
         mToolbar.setTitle("全系列浮标");
         mToolbar.setTitleTextAppearance(this, R.style.Toolbar_TitleText);
-        mToolbar.setTitleTextColor(Color.WHITE);
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.text_color_default));
         //侧边栏的按钮
         mToolbar.setNavigationIcon(R.mipmap.ic_actionbar);
         //取代原本的actionbar
@@ -107,59 +127,37 @@ public class MainActivity extends CommonActivity {
 
 
     private void initData() {
-        objectGetRequest(Urls.HOME, String.class, new RequestCallback<String>() {
+        objectGetRequest(Urls.HOME, DataResp.class, new RequestCallback<DataResp>() {
             @Override
-            public void onSuccess(String dataResp) {
+            public void onSuccess(DataResp resp) {
 
-                try {
-                    String utf = new String(dataResp.getBytes("iso8859-1"), "utf-8");
-                    DataResp resp = new Gson().fromJson(utf, DataResp.class);
-                    System.out.println("utf-->" + utf);
+                mAllProducts.clear();
+                mAllProducts.addAll(resp.getProductinfolist());
 
-                    System.out.println("resp-->" + resp.toString());
-                    System.out.println("resp.getProductInfolist()-->" + resp.getProductInfolist().size());
+                mProducts.clear();
+                mProducts.addAll(mAllProducts);
+                mProductAdapter.notifyDataSetChanged();
 
-                    mAllProducts.clear();
-                    for (int i = 0; i < 10; i++) {
-                        mAllProducts.addAll(resp.getProductInfolist());
-                    }
+                mCategoryPopupWindow = new CategoryPopupWindow(mActivity)
+                        .bindData(resp.getProductcataloglist())
+                        .setOnItemClickListener(new CategoryPopupWindow.OnItemClickListener() {
 
-                    mProducts.clear();
-                    mProducts.addAll(mAllProducts);
-                    mProductAdapter.notifyDataSetChanged();
-
-                    mCategoryPopupWindow = new CategoryPopupWindow(mActivity);
-                    List<CategoryModel> list = resp.getProductCataloglist();
-                    List<CategoryModel> tempList = new ArrayList<>();
-                    for (int i = 0; i < 10; i++) {
-                        tempList.addAll(list);
-                    }
-                    mCategoryPopupWindow.bindData(tempList)
-                            .setOnItemClickListener(new CategoryPopupWindow.OnItemClickListener() {
-                                @Override
-                                public void onClick(String category, int sortNo, String name) {
-                                    System.out.println(category + "--" + sortNo + "--" + name);
-                                    mToolbar.setTitle(category + " > " + name);
-                                    //notify 数据
-                                    mProducts.clear();
-                                    System.out.println(mAllProducts.size());
-                                    for (ProductModel model : mAllProducts) {
-                                        System.out.println("for-->" + model.getSortNo());
-                                        if (model.getSortNo() == sortNo) {
-                                            mProducts.add(model);
+                            @Override
+                            public void onClick(String uuid, String name, String parent) {
+                                mToolbar.setTitle(parent + " > " + name);
+                                mProducts.clear();
+                                for (ProductModel product : mAllProducts) {
+                                    String id = product.getCataloguuid();
+                                    if (!TextUtils.isEmpty(id)) {
+                                        if (id.equals(uuid)) {
+                                            mProducts.add(product);
                                         }
                                     }
-                                    System.out.println("mProducts-->" + mProducts.size());
-                                    mProductAdapter.notifyDataSetChanged();
                                 }
-                            });
-
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+                                mProductAdapter.notifyDataSetChanged();
+                            }
+                        });
             }
-
-
         });
     }
 }
