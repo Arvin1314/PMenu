@@ -40,6 +40,7 @@ public class DetailActivity extends CommonActivity {
     private RecyclerView mRecyclerCommend;
     private CommonAdapter<ProductModel> mCommendAdapter;
     private ImageView mProductImage;
+    private ImageView mProductImageDesc;
     private TextView mProductDesc;
     private ImageView mVideo;
 
@@ -70,13 +71,15 @@ public class DetailActivity extends CommonActivity {
         initToolbar();
 
         mProductImage = (ImageView) findViewById(R.id.product_image);
+        mProductImageDesc = (ImageView) findViewById(R.id.product_picture);
         mProductDesc = (TextView) findViewById(R.id.product_desc);
         mVideo = (ImageView) findViewById(R.id.product_video);
         mRecyclerCommend = (RecyclerView) findViewById(R.id.recycler_commend);
 
         mProductImage.setLayoutParams(new LinearLayout.LayoutParams(Screen.WIDTH / 4, Screen.WIDTH / 4));
 
-        ImageLoader.showImage(mProduct.getPicturedesc(), mProductImage);
+        ImageLoader.showImage(mProduct.getPicture(), mProductImage);
+        ImageLoader.showImage(mProduct.getPicturedesc(), mProductImageDesc);
 
         mProductDesc.setText(Html.fromHtml(mProduct.getTextdesc()));
 
